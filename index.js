@@ -86,15 +86,23 @@ class Car {
   drive(distance) {
     let miles = distance / this.milesPerGallon;
     let maxMiles = this.milesPerGallon * this.fill();
-  
+    this.odometer += distance;
+      this.tank -= miles;
     if (distance >= maxMiles) {
       this.odometer = maxMiles;
       this.tank = 0;
       return `I ran out of fuel at ${this.odometer} miles!`;
     } else {
-      this.odometer += distance;
-      this.tank -= miles;
+      
     }
+    // if (distance >= maxMiles) {
+    //   this.odometer = maxMiles;
+    //   this.tank = 0;
+    //   return `I ran out of fuel at ${this.odometer} miles!`;
+    // } else {
+    //   this.odometer += distance;
+    //   this.tank -= miles;
+    // }
   }
 
 }
@@ -112,7 +120,7 @@ class Car {
         + {name} and {location} of course come from the instance's own properties.
 */
 class Lambdasian {
-  constructor(name, age, location){
+  constructor({name:name, age:age, location:location}) {
     this.name = name;
     this.age = age;
     this.location = location;
@@ -168,7 +176,19 @@ class Instructor extends Lambdasian{
 */
 class Student extends Lambdasian {
     constructor(lambdaStudent){
-      super(lambdaStudent)
+      super(lambdaStudent);
+      this.previousBackground = lambdaStudent.previousBackground;
+      this.className = lambdaStudent.className;
+      this.favSubjects = lambdaStudent.favSubjects;
+    }
+    listSubjects(){
+      return `Loving ${this.favSubjects.join()}`;
+    }
+    PRAssignment(subject){
+      return `${this.name} has submitted a PR for ${subject}`;
+    }
+    sprintChallenge(subject){
+      return `${this.name} has begun sprint challenge on ${subject}`
     }
 }
 
@@ -185,8 +205,18 @@ class Student extends Lambdasian {
         + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
-class ProjectManager {
-
+class ProjectManager extends Instructor {
+    constructor(pmLambda){
+      super(pmLambda);
+      this.gradClassName = pmLambda.gradClassName;
+      this.favInstructor = pmLambda.favInstructor;
+    }
+    standUp(channel){
+      return `${this.name} announces to ${channel}, @channel standy times!`;
+    }
+    debugsCode(student , subject){
+      return `${this.name} debugs ${student.name}'s code on ${subject}`;
+    }
 }
 
 /*
